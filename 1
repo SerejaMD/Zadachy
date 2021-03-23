@@ -1,0 +1,19 @@
+from collections import Counter
+lis = []
+new=[]
+txt_ = open('resourse_1.txt','r')
+txt = txt_.read().split()
+txt_.close()
+for i in txt:
+    lis.append(i) 
+
+
+
+new=(Counter(lis).items())
+new=(list(new))
+
+file = (sorted(new, key=lambda x:(-x[1],x[0])))
+print(file)
+txt_ = open('result_1.txt','w')
+txt=txt_.write(str(file))
+txt_.close()
