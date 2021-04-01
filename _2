@@ -1,0 +1,116 @@
+from tkinter import *
+
+
+win = Tk()
+win.geometry('750x750')
+win.minsize(width='750', height='750')
+win.maxsize(width='750', height='750')
+
+
+def clears():
+    Texts.delete('1.0',END)
+
+
+
+
+cli = {'Test':3000}
+
+
+
+def start():
+    inputs_1 = Texts.get('1.0', END) 
+    inputs_2 = inputs_1.split()
+
+    comand = inputs_2[0]
+    name = inputs_2[1]
+    balanse = cli[name]
+    sums = int(inputs_2[2])
+    #balanse = int(inputs_2[2])
+    if comand == 'LOL':
+        cli['%s'%name] += sums 
+    print(cli)
+    #elif comand == "NET"    
+
+
+    
+
+    # cou = 0
+    # test = Texts.get('1.0', END) 
+    # for i in test:
+    #     if i == '\n':
+    #         cou +=1
+    #         cou = float(cou)
+    #         #l = Texts.get('%s'%cou, END)
+    #         n = cou+1
+    #         inputs_1 = Texts.get('%s'%cou,n)
+    #         inputs_2 = inputs_1.split()
+
+    #         comand = inputs_2[0]
+    #         name = inputs_2[1]
+    #         balanse = int(inputs_2[2])
+    #         if comand == 'LOL':
+    #             bal = int(cli[name])
+    #             bal = bal+ balanse
+    #             print(bal)
+
+                    
+
+    
+
+
+
+
+
+
+
+
+
+
+Texts = Text(win, width='50', height='9', wrap='word', font='arial 20')
+Texts.place(x='14', y='450')
+
+z = Scrollbar(command=Texts.yview)
+z.pack(side=RIGHT, fill = Y)
+Texts.config(yscrollcommand=z.set)
+
+
+Zapusk = Button(win, width='15', height='5', text='Запуск', font='arial 10', command=start)
+Zapusk.place( y='350',x='607')
+
+Clear = Button(win, width='15', height='5', text='Очистить', font='arial 10', command=clears)
+Clear.place(y='350', x='15')
+
+line = Canvas(bg='green', width='750', height='3')
+line.place(y='350', x=0)
+
+#Клиенты 
+# Class client:
+#     def init_self(name, balance):
+#         self.name = name
+#         self.balance = balance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+win.mainloop()
