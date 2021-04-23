@@ -1,0 +1,209 @@
+from tkinter import *
+
+win = Tk()
+win.geometry('750x750')
+win.minsize(width='750', height='750')
+win.maxsize(width='750', height='750')
+lis = []
+
+cli = {'test':3000, 'zoo':7000, 'q':20}
+new_cli={}
+
+
+def clears():
+    Texts.delete('1.0',END)
+
+
+
+
+
+
+def start():
+    inputs_1 = Texts.get('1.0', END)
+    lines = inputs_1.split('\n')  
+
+
+    for line in lines:
+            line = line.split()
+
+            command = line[0]
+            
+            if command == 'BALANCE' and len(line)==2:
+                name = line[1]
+                lis.append(name)
+                if name not in cli.keys():
+                    lis.append('No client')
+                elif name in cli.keys():
+                    lis.append(cli[name])
+            elif command == 'BALANCE' and len(line)<2:
+                for i in cli:
+                    lis.append(i)
+                    lis.append(cli[i])
+                    lis.append('...')
+
+
+
+                
+            if command == 'DEPOSIT':
+                name = line[1]
+                sum_ = line[2]
+                if name in cli.keys():
+                    z = cli[name]+int(sum_)
+                    cli[name]=z
+                    lis.append(z)
+
+                if name not in cli.keys():
+                    z = cli[name]=int(sum_)
+                    cli[name]=z
+                    lis.append(z)
+
+
+  
+
+
+
+            elif command == 'WITHDRAW':
+                name = line[1]
+                sum_ = line[2]
+                if name in cli.keys():
+                    z=cli[name]-int(sum_)
+                    cli[name]=z
+                    lis.append(z)
+                    
+                if name not in cli.keys():
+                    z = cli[name]=-int(sum_)
+                    cli[name]=z
+                    lis.append(z)
+
+
+
+
+
+            if command =='TRANSFER':
+                name_1 = line[1]
+                name_2 = line[2]
+                sum_ = line[3]
+
+                if name_1 not in cli.keys():
+                    cli[name_1]=int(sum_)
+                    cli[name_2]-=int(sum_)
+
+                    lis.append(cli[name_1])
+                    lis.append(cli[name_2])
+                    break
+                    
+                if name_2 not in cli.keys():
+                    cli[name_2]=int(sum_)
+                    cli[name_1]-=int(sum_)
+
+                    lis.append(cli[name_1])
+                    lis.append(cli[name_2])
+                    break
+
+
+
+                if name_1 and name_2 in cli.keys():
+                    cli[name_1]-=int(sum_)
+                    cli[name_2]+=int(sum_)
+
+                    lis.append(cli[name_1])
+                    lis.append(cli[name_2])
+
+
+
+
+
+
+
+
+            if command == 'INCOME ':
+                sum_ = line[1]
+                new_cli = cli.copy()
+                cli.clear()
+                for i in new_cli.keys():
+                    chisl = new_cli[i]
+                    if chisl <= 0:
+                        cli[i]=chisl
+                        lis.append(i)
+                        lis.append(cli[i])
+                    if chisl > 0:
+                        itog = (chisl * int(sum_))//100  
+                        new_cli[i]+=int(itog)
+                        lis.append(new_cli[i])
+
+
+
+    y=0
+    x=0
+    cou = 0
+    for i in lis: 
+        if cou == 7:  
+            x=0 
+            cou=0
+            y= y+270
+            x=x+30
+            lbl = Label(win, font='arial 17',text='%s'%i)
+            lbl.place(x=y,y=x)
+        elif cou < 7:
+            x=x+30
+            lbl = Label(win, font='arial 17',text='%s'%i)
+            lbl.place(x=y,y=x)
+        cou+=1
+            
+
+
+
+                    
+
+    
+
+
+
+
+
+
+
+
+
+
+Texts = Text(win, width='50', height='9', wrap='word', font='arial 20')
+Texts.place(x='14', y='450')
+
+z = Scrollbar(command=Texts.yview)
+z.pack(side=RIGHT, fill = Y)
+Texts.config(yscrollcommand=z.set)
+
+
+Zapusk = Button(win, width='15', height='5', text='Запуск', font='arial 10', command=start)
+Zapusk.place( y='350',x='607')
+
+Clear = Button(win, width='15', height='5', text='Очистить', font='arial 10', command=clears)
+Clear.place(y='350', x='15')
+
+line = Canvas(bg='green', width='750', height='3')
+line.place(y='350', x=0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+win.mainloop()
