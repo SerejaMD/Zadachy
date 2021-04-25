@@ -12,8 +12,16 @@ for i in txt:
 new=(Counter(lis).items())
 new=(list(new))
 
-file = (sorted(new, key=lambda x:(-x[1],x[0])))
-print(file)
+fils=(sorted(new))
+
+files = (sorted(new, key=lambda x:(-x[1],x[0])))
+
+for i in files:
+    print(i[0],i[1])
 txt_ = open('result_1.txt','w')
-txt=txt_.write(str(file))
+for i in files:
+    txt_.write(str(i[0]))
+    txt_.write('<->')
+    txt_.write(str(i[1]))
+    txt_.write('\n')
 txt_.close()
